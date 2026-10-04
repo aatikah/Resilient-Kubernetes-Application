@@ -1,0 +1,68 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: techway-frontend
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app.kubernetes.io/name: {{ .Values.appName }}
+    app.kubernetes.io/component: frontend
+spec:
+  type: ClusterIP
+  selector:
+    app: techway-frontend
+  ports:
+    - name: http
+      port: 80
+      targetPort: {{ .Values.frontend.port }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: techway-backend
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app.kubernetes.io/name: {{ .Values.appName }}
+    app.kubernetes.io/component: backend
+spec:
+  type: ClusterIP
+  selector:
+    app: techway-backend
+  ports:
+    - name: http
+      port: 80
+      targetPort: {{ .Values.backend.port }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: techway-postgres
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app.kubernetes.io/name: {{ .Values.appName }}
+    app.kubernetes.io/component: database
+spec:
+  clusterIP: None
+  selector:
+    app: techway-postgres
+  ports:
+    - name: postgres
+      port: 5432
+      targetPort: 5432
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: techway-redis
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app.kubernetes.io/name: {{ .Values.appName }}
+    app.kubernetes.io/component: cache
+spec:
+  type: ClusterIP
+  selector:
+    app: techway-redis
+  ports:
+    - name: redis
+      port: 6379
+      targetPort: 6379
+---

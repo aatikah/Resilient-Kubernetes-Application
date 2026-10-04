@@ -1,0 +1,19 @@
+appName: techway
+frontend:
+  replicas: 2
+  image: techway/frontend:1.0.0
+  port: 8080
+backend:
+  replicas: 2
+  image: techway/backend:1.0.0
+  port: 8081
+postgres:
+  image: postgres:16
+  storage: 20Gi
+redis:
+  image: redis:7-alpine
+secrets:
+  postgresPassword: ""
+  redisPassword: ""
+ingress:
+  host: techway.local

@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: techway-app-config
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app.kubernetes.io/name: {{ .Values.appName }}
+    app.kubernetes.io/component: config
+data:
+  APP_NAME: "{{ .Values.appName }}"
+  BACKEND_PORT: "{{ .Values.backend.port }}"
+  FRONTEND_PORT: "{{ .Values.frontend.port }}"
+  DB_HOST: "techway-postgres"
+  DB_PORT: "5432"
+  DB_NAME: "appdb"
+  DB_USER: "appuser"
+  DB_DATA_DIR: "/var/lib/postgresql/data/pgdata"
+  REDIS_HOST: "techway-redis"
+  REDIS_PORT: "6379"
+  CACHE_TTL_SECONDS: "15"
+  LOG_LEVEL: "info"
+---
